@@ -2,6 +2,24 @@
 import random
 
 
+class Connection:
+    """Class to represent a connection between nodes."""
+
+    def __init__(self, start, end):
+        """Create a Connection.
+
+        Keyword arguments:
+        start -- the start node id
+        end -- the end node id
+        """
+        self.start = start
+        self.end = end
+
+    def __str__(self):
+        """Get the string representation of the connection."""
+        return '{},{}'.format(self.start, self.end)
+
+
 class Node:
     """Class to represent a road node."""
 
