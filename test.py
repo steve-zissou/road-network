@@ -48,6 +48,40 @@ class Node:
         self.x, self.y, self.z = self._generate_node(x_max, y_max, z_max)
 
 
+def generate_road_nodes(node_count=5, x_max=20, y_max=20, z_max=20):
+    """Generate road nodes of the specified size.
+
+    Keyword arguments:
+    node_count -- the number of nodes to create
+    x_max -- the maximum x value for a node (default 20)
+    y_max -- the maximum y value for a node (default 20)
+    z_max -- the maximum z value for a node (default 20)
+    """
+    nodes = []
+    for index, item in enumerate(range(node_count)):
+        nodes.append(Node(index))
+
+    return nodes
+
+
+def generate_road_connections(nodes, connection_count=5):
+    """Generate road connections for the given nodes.
+    """
+    node_ids = list(map(lambda node: node.id, nodes))
+
+    if (connection_count > len(nodes)):
+        connection_count = len(nodes)
+
+    elif (connection_count < 0):
+        connection_count = 0
+
+    starts = random.sample(node_ids, connection_count)
+    ends = random.sample(node_ids, connection_count)
+    groups = zip(starts, ends)
+
+    return list(map(lambda x: Connection(*x), groups))
+
+
 def generate_road_network(node_count=5, x_max=20, y_max=20, z_max=20):
     """Generate a road network of the specified size.
 
@@ -57,12 +91,12 @@ def generate_road_network(node_count=5, x_max=20, y_max=20, z_max=20):
     y_max -- the maximum y value for a node (default 20)
     z_max -- the maximum z value for a node (default 20)
     """
-    nodes = []
-    for index, item in enumerate(range(node_count)):
-        nodes.append(Node(index))
+    nodes = generate_road_nodes(node_count, x_max, y_max, z_max)
+    connections = generate_road_connections(nodes)
 
     print(*nodes, sep='\n')
+    print(*connections, sep='\n')
 
 
 if __name__ == '__main__':
-    generate_road_network(3)
+    generate_road_network()
