@@ -23,10 +23,13 @@ class Connection:
 class Node:
     """Class to represent a road node."""
 
+    def _get_random_value(self, max):
+        return '{:.2f}'.format(random.uniform(0, max))
+
     def _generate_node(self, x_max, y_max, z_max):
-        x = '{:.1f}'.format(random.uniform(0, x_max))
-        y = '{:.1f}'.format(random.uniform(0, y_max))
-        z = '{:.1f}'.format(random.uniform(0, z_max))
+        x = self._get_random_value(x_max)
+        y = self._get_random_value(y_max)
+        z = self._get_random_value(z_max)
         return [x, y, z]
 
     def __str__(self):
